@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="seekBarMin">1</integer>
+    <integer name="seekBarStart">4</integer>
+    <integer name="seekBarMax">16</integer>
+    <integer name="BPMStart">60</integer>
+    <integer name="BPMMin">40</integer>
+    <integer name="BPMMax">400</integer>
+    <integer name="divider">8</integer>
+</resources>
