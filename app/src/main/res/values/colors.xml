@@ -10,4 +10,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="soundActive">#F67200</color>
+    <color name="soundNoActive">#5AB4C5</color>
+    <color name="playButtonBackground">#000000</color>
+    <color name="playButtonArrow">#F67200</color>
+
 </resources>
