@@ -6,5 +6,8 @@
     <integer name="BPMStart">60</integer>
     <integer name="BPMMin">40</integer>
     <integer name="BPMMax">400</integer>
+    <integer name="HZStart">200</integer>
+    <integer name="HZMin">20</integer>
+    <integer name="HZMax">20000</integer>
     <integer name="divider">8</integer>
 </resources>

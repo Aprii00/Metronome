@@ -58,7 +58,55 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarHz"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textTimeSignature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94"
+        android:max="@integer/HZMax"
+        android:min="@integer/HZMin"
+        android:progress="@integer/HZStart"/>
+
+    <TextView
+        android:id="@+id/textMinHz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarHz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textMaxHz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarHz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textHz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarHz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997" />
+
+    <SeekBar
+        android:id="@+id/seekBarTimeSignature"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textBPM"
@@ -75,7 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarTimeSignature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarTimeSignature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarTimeSignature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
