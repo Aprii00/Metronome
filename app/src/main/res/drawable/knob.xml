@@ -57,8 +57,8 @@
                 android:endY="45"
                 android:endX="128"
                 android:type="linear">
-                <item android:offset="0" android:color="#FFFFFFFF"/>
-                <item android:offset="1" android:color="#FFE8E8E8"/>
+                <item android:offset="0" android:color="@color/playButtonArrow"/>
+                <item android:offset="1" android:color="@color/playButtonArrow"/>
             </gradient>
         </aapt:attr>
     </path>

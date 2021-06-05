@@ -15,6 +15,8 @@ import androidx.core.view.GestureDetectorCompat
 import com.example.metronome.R
 import kotlinx.android.synthetic.main.rotary_knob_view.view.*
 import kotlin.math.atan2
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 class RotaryKnobView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -66,7 +68,7 @@ class RotaryKnobView @JvmOverloads constructor(
         if(valueF > maxValue) valueF = maxValue.toFloat()
         else if(valueF < minValue) valueF = minValue.toFloat()
 
-        value = valueF.toInt()
+        value = ceil(valueF.toDouble()).toInt()
 //       Log.e("2", valueF.toString())
         if (listener != null) {
             listener!!.onRotate(value)

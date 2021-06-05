@@ -66,6 +66,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.94"
+        android:thumbTint="@color/playButtonBackground"
+        android:progressBackgroundTint="@color/playButtonArrow"
+        android:progressTint="@color/playButtonArrow"
         android:max="@integer/HZMax"
         android:min="@integer/HZMin"
         android:progress="@integer/HZStart"/>
@@ -114,6 +117,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.94"
+        android:thumbTint="@color/playButtonBackground"
+        android:progressBackgroundTint="@color/playButtonArrow"
+        android:progressTint="@color/playButtonArrow"
         android:max="@integer/seekBarMax"
         android:min="@integer/seekBarMin"
         android:progress="@integer/seekBarStart"/>
@@ -167,5 +173,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/play_arrow"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/loadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:onClick="loadNew"
+        android:soundEffectsEnabled="false"
+        app:backgroundTint="@color/playButtonBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/load_button_image"
+        app:tint="@color/playButtonArrow" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:onClick="saveCurrent"
+        android:soundEffectsEnabled="false"
+        app:backgroundTint="@color/playButtonBackground"
+        app:layout_constraintBottom_toTopOf="@+id/loadButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/save_buttno_image"
+        app:tint="@color/playButtonArrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

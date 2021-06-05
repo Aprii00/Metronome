@@ -1,6 +1,7 @@
 package com.example.metronome
 
 import android.content.Context
+import android.content.Intent
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
@@ -12,7 +13,10 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.metronome.database.Record
 import com.example.metronome.knob.RotaryKnobView
+import com.example.metronome.load.LoadActivity
+import com.example.metronome.save.SaveActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import java.lang.Short
@@ -21,6 +25,7 @@ import java.lang.Short
 class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
 
     var timeSignature : Int = 0
+    var timeSignatureTemp : Int = 0
     var bitsPerMinute :Int = 0
     var timeInterval : Long = 0
     var soundHz : Int = 0
@@ -39,6 +44,7 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
         setContentView(R.layout.activity_main)
 
         timeSignature = resources.getInteger(R.integer.seekBarStart)
+        timeSignatureTemp = resources.getInteger(R.integer.seekBarStart)
         bitsPerMinute = resources.getInteger(R.integer.BPMStart)
         timeInterval = (60000 / bitsPerMinute).toLong()
         textBPM.text = "$bitsPerMinute BPS"
@@ -54,13 +60,25 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
 
         seekBarTimeSignature.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                textTimeSignature.text = progress.toString()
-                timeSignature = progress
+                timeSignatureTemp = progress
+                textTimeSignature.text = timeSignatureTemp.toString()
 
-                scopeDraw = CoroutineScope(Dispatchers.Main)
-                scopeDraw.launch {
-                    draw()
+                if(!playSound){
+                    timeSignature = timeSignatureTemp
+                    scopeDraw = CoroutineScope(Dispatchers.Main)
+                    scopeDraw.launch {
+                        draw()
+                    }
                 }
+//                textTimeSignature.text = progress.toString()
+//
+//                jobTimer.join()
+//                timeSignature = progress
+//
+//                scopeDraw = CoroutineScope(Dispatchers.Main)
+//                scopeDraw.launch {
+//                    draw()
+//                }
 
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -93,7 +111,7 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
 
 
     override fun onRotate(value: Int) {
-        textBPM.text = "$value BPS"
+        textBPM.text = "$value BPM"
         bitsPerMinute = value
         Log.e("value",  value.toString())
         timeInterval = (60000 / value).toLong()
@@ -151,7 +169,7 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
 
         imageList[lighted].setColorFilter(ContextCompat.getColor(this.applicationContext, R.color.soundActive), android.graphics.PorterDuff.Mode.SRC_IN)
         delay(100)
-        imageList[lighted].setColorFilter(ContextCompat.getColor(this.applicationContext, R.color.soundNoActive), android.graphics.PorterDuff.Mode.SRC_IN)
+        imageList[lighted].setColorFilter(ContextCompat.getColor(this.applicationContext, R.color.playButtonBackground), android.graphics.PorterDuff.Mode.SRC_IN)
 
 
         lighted = (lighted + 1)%timeSignature
@@ -194,11 +212,18 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
             jobTimer.cancel()
 
             for(image in imageList) {
-                image.setColorFilter(ContextCompat.getColor(this.applicationContext, R.color.soundNoActive), android.graphics.PorterDuff.Mode.SRC_IN)
+                image.setColorFilter(ContextCompat.getColor(this.applicationContext, R.color.playButtonBackground), android.graphics.PorterDuff.Mode.SRC_IN)
             }
 
             playButton.setImageResource(R.drawable.play_arrow)
-            //Log.e("scopeTimer", scopeTimer.toString())
+
+
+
+            timeSignature = timeSignatureTemp
+            scopeDraw = CoroutineScope(Dispatchers.Main)
+            scopeDraw.launch {
+                draw()
+            }
         }
         else{
             lighted = 0
@@ -213,5 +238,38 @@ class MainActivity : AppCompatActivity(), RotaryKnobView.RotaryKnobListener {
             playButton.setImageResource(R.drawable.play_stop)
         }
 
+    }
+
+    fun saveCurrent(view: View) {
+        if (!playSound){
+            val myIntent = Intent(this, SaveActivity::class.java).putExtra("keyHz", soundHz).putExtra("keyTimeSignature", timeSignature).putExtra("keyBpn", bitsPerMinute)
+            startActivityForResult(myIntent, 1)
+        }
+    }
+    fun loadNew(view: View) {
+        if(!playSound){
+            val myIntent = Intent(this, LoadActivity::class.java)
+            startActivityForResult(myIntent, 2)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 1) {
+
+        }else if (requestCode == 2){
+            soundHz = data?.getIntExtra("keyHzR", soundHz) ?: soundHz
+            timeSignature = data?.getIntExtra("keyTimeSignatureR", timeSignature) ?: timeSignature
+            bitsPerMinute = data?.getIntExtra("keyBpmR", bitsPerMinute) ?: bitsPerMinute
+
+            textBPM.text = "$bitsPerMinute BPS"
+
+            //textHz.text = "$soundHz Hz"
+            seekBarHz.progress = soundHz
+
+            //textTimeSignature.text = "$timeSignature"
+            seekBarTimeSignature.progress = timeSignature
+        }
     }
 }

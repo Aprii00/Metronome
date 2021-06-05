@@ -14,5 +14,6 @@
     <color name="soundNoActive">#5AB4C5</color>
     <color name="playButtonBackground">#000000</color>
     <color name="playButtonArrow">#F67200</color>
+    <color name="backGround">#A1A1A1</color>
 
 </resources>
